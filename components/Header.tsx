@@ -12,9 +12,8 @@ export default function Header() {
         </Link>
         <nav aria-label="Primary">
           <ul className="flex items-center gap-1 text-sm font-medium text-muted">
-            <li><Link href="/" className="rounded-md px-3 py-2 hover:text-ink">Home</Link></li>
-            <li><Link href="/#articles" className="rounded-md px-3 py-2 hover:text-ink">Articles</Link></li>
-            <li><a href="/feed.xml" className="rounded-md px-3 py-2 hover:text-ink">RSS</a></li>
+            <li><Link href="/" className="rounded-md px-3 py-2 hover:text-ink">Articles</Link></li>
+            <li><Link href="/about" className="rounded-md px-3 py-2 hover:text-ink">About</Link></li>
           </ul>
         </nav>
       </div>
