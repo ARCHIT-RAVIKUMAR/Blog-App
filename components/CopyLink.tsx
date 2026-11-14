@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-export default function CopyLink() {
+export default function CopyLink({ tone = "light" }: { tone?: "light" | "dark" }) {
   const [copied, setCopied] = useState(false);
 
   async function copy() {
@@ -19,7 +19,11 @@ export default function CopyLink() {
     <button
       type="button"
       onClick={copy}
-      className="inline-flex items-center gap-2 rounded-lg border border-line px-4 py-2 text-sm font-medium hover:bg-subtle"
+      className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
+        tone === "dark"
+          ? "border-white/25 text-white hover:bg-white/10"
+          : "border-line text-ink hover:bg-subtle"
+      }`}
     >
       <svg aria-hidden="true" viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7" />

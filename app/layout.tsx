@@ -1,14 +1,19 @@
 import type { Metadata, Viewport } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { DM_Sans, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/Providers";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { SITE_URL } from "@/lib/posts";
 
-const jakarta = Plus_Jakarta_Sans({
+const body = DM_Sans({
   subsets: ["latin"],
-  variable: "--font-jakarta",
+  variable: "--font-body",
+  display: "swap",
+});
+const heading = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-heading",
   display: "swap",
 });
 
@@ -23,14 +28,14 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#ffffff",
+  themeColor: "#14110f",
   width: "device-width",
   initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={jakarta.variable}>
+    <html lang="en" className={`${body.variable} ${heading.variable}`}>
       <body className="flex min-h-screen flex-col">
         <a
           href="#main"

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Avatar } from "@/components/PostCard";
-import PostCard from "@/components/PostCard";
+import PostCard, { Avatar } from "@/components/PostCard";
+import CategoryTag from "@/components/CategoryTag";
 import Cover from "@/components/Cover";
 import CopyLink from "@/components/CopyLink";
 import { formatDate, readingTime } from "@/lib/format";
@@ -55,82 +55,88 @@ export default async function PostPage({ params }: Props) {
   };
 
   return (
-    <article className="mx-auto max-w-[1000px] px-5 pt-10 sm:px-8 sm:pt-14">
+    <article>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
 
-      <div className="mx-auto max-w-[720px]">
-        <nav aria-label="Breadcrumb">
-          <ol className="flex items-center gap-2 text-sm text-muted">
-            <li><Link href="/" className="hover:text-ink">Articles</Link></li>
-            <li aria-hidden="true">/</li>
-            <li><Link href={`/?category=${encodeURIComponent(post.category)}`} className="hover:text-ink">{post.category}</Link></li>
-          </ol>
-        </nav>
+      <div className="bg-ink pb-28 pt-10 text-white sm:pb-40 sm:pt-14">
+        <div className="mx-auto max-w-[760px] px-5 sm:px-8">
+          <nav aria-label="Breadcrumb">
+            <ol className="flex items-center gap-2 text-sm text-white/60">
+              <li><Link href="/" className="hover:text-white">Articles</Link></li>
+              <li aria-hidden="true">/</li>
+              <li>
+                <Link href={`/?category=${encodeURIComponent(post.category)}`} className="hover:text-white">
+                  {post.category}
+                </Link>
+              </li>
+            </ol>
+          </nav>
 
-        <header className="mt-6">
-          <h1 className="text-3xl font-extrabold leading-[1.15] tracking-tight text-balance sm:text-5xl">{post.title}</h1>
-          <p className="mt-5 text-xl leading-relaxed text-muted">{post.excerpt}</p>
-          <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-y border-line py-5">
+          <CategoryTag category={post.category} className="mt-8" />
+          <h1 className="mt-4 text-4xl font-bold leading-[1.08] text-balance sm:text-6xl">{post.title}</h1>
+          <p className="mt-6 text-xl leading-relaxed text-white/75">{post.excerpt}</p>
+
+          <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <Avatar name={post.author} />
-              <div className="text-sm leading-snug text-muted">
-                <p className="font-semibold text-ink">{post.author}</p>
+              <Avatar name={post.author} tone="dark" />
+              <div className="text-sm leading-snug text-white/70">
+                <p className="font-semibold text-white">{post.author}</p>
                 <p>
                   <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time> · {readingTime(post.content)} min read
                 </p>
               </div>
             </div>
-            <CopyLink />
+            <CopyLink tone="dark" />
           </div>
-        </header>
+        </div>
       </div>
 
-      <Cover
-        hue={post.coverHue}
-        image={post.image}
-        alt={post.title}
-        priority
-        sizes="(min-width: 1000px) 936px, 100vw"
-        className="mt-10 aspect-[16/8] w-full rounded-2xl"
-      />
+      <div className="mx-auto -mt-20 max-w-[1000px] px-5 sm:-mt-32 sm:px-8">
+        <Cover
+          hue={post.coverHue}
+          image={post.image}
+          alt={post.title}
+          priority
+          sizes="(min-width: 1000px) 936px, 100vw"
+          className="aspect-[16/8] w-full rounded-2xl shadow-2xl"
+        />
 
-      <div className="mx-auto mt-10 max-w-[720px] flex flex-col gap-5 text-[1.0625rem] leading-[1.85] text-ink/85">
-        {post.content.split(/\n\s*\n/).map((block, i) =>
-          block.startsWith("## ") ? (
-            <h2 key={i} className="mt-5 text-2xl font-bold tracking-tight text-ink">
-              {block.slice(3)}
-            </h2>
-          ) : (
-            <p key={i}>{block}</p>
-          ),
+        <div className="mx-auto mt-12 flex max-w-[720px] flex-col gap-5 text-[1.0625rem] leading-[1.85] text-ink/85">
+          {post.content.split(/\n\s*\n/).map((block, i) =>
+            block.startsWith("## ") ? (
+              <h2 key={i} className="mt-5 text-3xl font-bold text-ink">{block.slice(3)}</h2>
+            ) : (
+              <p key={i}>{block}</p>
+            ),
+          )}
+
+          <aside aria-label="About the author" className="mt-7 flex items-center gap-4 rounded-2xl border border-line bg-white p-6">
+            <Avatar name={post.author} size="lg" />
+            <div>
+              <p className="font-semibold text-ink">{post.author}</p>
+              <p className="text-sm leading-relaxed text-muted">
+                {post.authorRole} at Inkwell. Writes about {post.category.toLowerCase()} and building for the web.
+              </p>
+            </div>
+          </aside>
+        </div>
+
+        {related.length > 0 && (
+          <section aria-labelledby="related" className="mt-20">
+            <h2 id="related" className="text-3xl font-bold">Keep reading</h2>
+            <ul className="mt-6 grid gap-6 md:grid-cols-3">
+              {related.map((r) => (
+                <li key={r.id} className="h-full">
+                  <PostCard post={r} />
+                </li>
+              ))}
+            </ul>
+          </section>
         )}
-
-        <aside aria-label="About the author" className="mt-7 flex items-center gap-4 rounded-2xl border border-line bg-subtle p-6">
-          <Avatar name={post.author} size="lg" />
-          <div>
-            <p className="font-semibold text-ink">{post.author}</p>
-            <p className="text-sm leading-relaxed text-muted">
-              {post.authorRole} at Inkwell. Writes about {post.category.toLowerCase()} and building for the web.
-            </p>
-          </div>
-        </aside>
       </div>
-
-      {related.length > 0 && (
-        <section aria-labelledby="related" className="mt-20">
-          <h2 id="related" className="text-2xl font-bold tracking-tight">Keep reading</h2>
-          <ul className="mt-6 grid gap-6 md:grid-cols-3">
-            {related.map((r) => (
-              <li key={r.id} className="h-full">
-                <PostCard post={r} />
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
     </article>
   );
 }
