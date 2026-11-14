@@ -5,21 +5,6 @@ A responsive, accessible, SEO-friendly blog built with the **Next.js App Router*
 | | |
 | --- | --- |
 | **Live demo** | https://blog-app-seven-lilac.vercel.app |
-| **Repository** | _add your GitHub repo URL_ |
-
----
-
-## Screenshots
-
-> Add your own images to `docs/screenshots/` using these names.
-
-| Desktop home | Mobile home |
-| --- | --- |
-| ![Home, desktop](docs/screenshots/home-desktop.png) | ![Home, mobile](docs/screenshots/home-mobile.png) |
-
-| Search and filter | Article page |
-| --- | --- |
-| ![Search results](docs/screenshots/search.png) | ![Article](docs/screenshots/article.png) |
 
 ---
 
