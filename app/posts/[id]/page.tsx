@@ -65,10 +65,10 @@ export default async function PostPage({ params }: Props) {
         <div className="mx-auto max-w-[760px] px-5 sm:px-8">
           <nav aria-label="Breadcrumb">
             <ol className="flex items-center gap-2 text-sm text-white/60">
-              <li><Link href="/" className="hover:text-white">Articles</Link></li>
+              <li><Link href="/#articles" className="hover:text-white">Articles</Link></li>
               <li aria-hidden="true">/</li>
               <li>
-                <Link href={`/?category=${encodeURIComponent(post.category)}`} className="hover:text-white">
+                <Link href={`/?category=${encodeURIComponent(post.category)}#articles`} className="hover:text-white">
                   {post.category}
                 </Link>
               </li>

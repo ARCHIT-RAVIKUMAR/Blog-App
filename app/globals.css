@@ -19,7 +19,10 @@
   }
 }
 
-html { scroll-padding-top: 5rem; }
+html {
+  scroll-padding-top: 5rem;
+  scroll-behavior: smooth;
+}
 
 body {
   background: var(--color-paper);

@@ -12,7 +12,7 @@ export default function Header() {
         </Link>
         <nav aria-label="Primary">
           <ul className="flex items-center gap-1 text-sm font-medium text-white/70">
-            <li><Link href="/" className="rounded-full px-4 py-2 hover:bg-white/10 hover:text-white">Articles</Link></li>
+            <li><Link href="/#articles" className="rounded-full px-4 py-2 hover:bg-white/10 hover:text-white">Articles</Link></li>
             <li><Link href="/about" className="rounded-full px-4 py-2 hover:bg-white/10 hover:text-white">About</Link></li>
           </ul>
         </nav>

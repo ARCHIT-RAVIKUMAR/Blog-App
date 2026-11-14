@@ -27,7 +27,7 @@ export default async function Footer() {
           <ul className="mt-4 space-y-2.5 text-sm">
             {topics.map((t) => (
               <li key={t}>
-                <Link href={`/?category=${encodeURIComponent(t)}`} className="hover:text-white">{t}</Link>
+                <Link href={`/?category=${encodeURIComponent(t)}#articles`} className="hover:text-white">{t}</Link>
               </li>
             ))}
           </ul>
@@ -36,7 +36,7 @@ export default async function Footer() {
         <nav aria-label="Site">
           <h2 className="text-sm font-semibold text-white">Site</h2>
           <ul className="mt-4 space-y-2.5 text-sm">
-            <li><Link href="/" className="hover:text-white">All articles</Link></li>
+            <li><Link href="/#articles" className="hover:text-white">All articles</Link></li>
             <li><Link href="/about" className="hover:text-white">About</Link></li>
             <li><Link href="/sitemap.xml" className="hover:text-white">Sitemap</Link></li>
           </ul>
