@@ -2,7 +2,7 @@ export type Post = {
   id: string;
   title: string;
   excerpt: string;
-  /** Paragraphs separated by a blank line. */
+  /** Paragraphs separated by a blank line. Lines starting with "## " are section headings. */
   content: string;
   author: string;
   authorRole: string;

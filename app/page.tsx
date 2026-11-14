@@ -7,18 +7,17 @@ export const dynamic = "force-dynamic";
 export default async function Home({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string }>;
+  searchParams: Promise<{ q?: string; category?: string }>;
 }) {
-  const { q = "" } = await searchParams;
+  const { q = "", category = "All" } = await searchParams;
 
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({ queryKey: ["posts"], queryFn: getPosts });
 
   return (
-    <div className="mx-auto max-w-[1120px] px-5 pt-12 sm:px-8 sm:pt-16">
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <PostList initialQuery={q} />
-      </HydrationBoundary>
-    </div>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      {/* key remounts the list when the URL filters change via a link (e.g. footer topics) */}
+      <PostList key={`${q}|${category}`} initialQuery={q} initialCategory={category} />
+    </HydrationBoundary>
   );
 }

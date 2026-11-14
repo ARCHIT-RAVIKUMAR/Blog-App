@@ -26,19 +26,6 @@ export async function getPost(id: string): Promise<Post | null> {
   return (await res.json()) as Post;
 }
 
-export function readingTime(content: string) {
-  const words = content.trim().split(/\s+/).length;
-  return Math.max(1, Math.round(words / 220));
-}
-
-export function formatDate(iso: string) {
-  return new Intl.DateTimeFormat("en-GB", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  }).format(new Date(iso));
-}
-
 export const SITE_URL = (
   process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
 ).replace(/\/$/, "");
